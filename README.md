@@ -32,10 +32,10 @@ Do not forget the [post-installation steps](https://docs.docker.com/engine/insta
 
 * Place only one dump file at a time in the *input* directory.
 * The MySQL container might take a few minutes to spin up because it is importing the dump file from the *input* directory during the build phase.
-* Wait a few seconds between the ```make up``` and ```make migrate``` commands to let the Postgres container to spin up properly.
+* Wait a few seconds between the ```make up``` and ```make migrate``` commands for the Postgres container to spin up properly.
 
 ## Roadmap
 
-* Add env variable to manage the postogres and mysql versions
+* Add env variable to manage the Postgres and MySQL versions
 * Add env varibale to control the parameters passed to pgloader
 * Add env variable to control the parameters passed to pg_dump
