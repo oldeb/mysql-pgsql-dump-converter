@@ -12,8 +12,7 @@ services:
     volumes:
       - db_data:/var/lib/postgresql/data
       - ./output:/tmp/output
-    environment:
-      POSTGRES_PASSWORD: root
+    env_file: .env
 
   mysql:
     image: mysql:5.7
@@ -23,11 +22,7 @@ services:
     volumes:
       - /var/lib/mysql
       - ./input:/docker-entrypoint-initdb.d
-    environment:
-      MYSQL_DATABASE: database
-      MYSQL_USER: user
-      MYSQL_PASSWORD: password
-      MYSQL_ROOT_PASSWORD: root_password
+    env_file: .env
     healthcheck:
       test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
       timeout: 20s

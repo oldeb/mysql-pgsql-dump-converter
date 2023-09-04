@@ -14,19 +14,26 @@ Do not forget the [post-installation steps](https://docs.docker.com/engine/insta
 
 ## Usage
 
+TL;DR: ```make all``` => /output/mysql_to_pgsql--***.sql
+
+### More details :
 1. Place your MySQL dump file into the *input* directory.
-2. Spin up the containers: ```make up```
+2. Setup the containers: ```make install```
 3. Execute the script: ```make migrate```
 4. Your Postgres compatible dump file should apprear in the *output* directory.
 5. ... profit !
 
-### If you want to convert another dump file
+#### If you want to convert another dump file
 
 1. Spin the containers down : ```make down```
 2. Replace the dump file into the *input* directory.
 3. Spin the containers back up: ```make up```
 4. Execute the script again: ```make migrate```
 5. Grab you new converted dump into the *output* directory.
+
+### Commands list
+
+Execute ```make help``` to get the complete commands list.
 
 ## Troubleshooting
 
@@ -37,5 +44,3 @@ Do not forget the [post-installation steps](https://docs.docker.com/engine/insta
 ## Roadmap
 
 * Add env variable to manage the Postgres and MySQL versions
-* Add env varibale to control the parameters passed to pgloader
-* Add env variable to control the parameters passed to pg_dump
