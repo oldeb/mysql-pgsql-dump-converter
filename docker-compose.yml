@@ -1,7 +1,10 @@
 version: '3.6'
 services:
   postgres:
-    build: .
+    build:
+      context: .
+      args:
+        POSTGRES_VERSION: ${POSTGRES_VERSION}
     container_name: postgres-db
     ports:
       - '5431:5432'
@@ -15,7 +18,7 @@ services:
     env_file: .env
 
   mysql:
-    image: mysql:5.7
+    image: ${MYSQL_IMAGE}
     container_name: mysql-db
     ports:
       - '3307:3306'

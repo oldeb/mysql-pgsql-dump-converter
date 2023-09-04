@@ -9,9 +9,8 @@ pgloader $PGLOADER_OPTIONS \
 "postgresql://$POSTGRES_USER:$POSTGRES_PASSWORD@localhost:5432/$POSTGRES_DB"
 
 # Dump the PgSQL database into a file.
-filename="/tmp/output/mysql_to_pgsql--`date +"%d%m%Y%H%M"`.sql"
+filename="/tmp/output/mysql_to_pgsql--`date +"%Y%m%d%H%M%S"`.sql"
 pg_dump $POSTGRES_DB $PG_DUMP_OPTIONS --file=$filename
 chmod 777 ${filename}
 sed -i '/CREATE SCHEMA database;/d' $filename
 sed -i 's/database./public./g' $filename
-echo "Task sucessfully completed."

@@ -14,7 +14,9 @@ Do not forget the [post-installation steps](https://docs.docker.com/engine/insta
 
 ## Usage
 
-TL;DR: ```make all``` => /output/mysql_to_pgsql--***.sql
+1. Place MySQL dump into *input* directory.
+2. Execute ```make all``` command.
+3. Grab converted dump: *output/mysql_to_pgsql--YYYYmmDDHHMMSS.sql*.
 
 ### More details :
 1. Place your MySQL dump file into the *input* directory.
@@ -40,7 +42,8 @@ Execute ```make help``` to get the complete commands list.
 * Place only one dump file at a time in the *input* directory.
 * The MySQL container might take a few minutes to spin up because it is importing the dump file from the *input* directory during the build phase.
 * Wait a few seconds between the ```make up``` and ```make migrate``` commands for the Postgres container to spin up properly.
+* Execute ```make rebuild``` after changing the input file.
 
 ## Roadmap
 
-* Add env variable to manage the Postgres and MySQL versions
+* Handle gzipped files

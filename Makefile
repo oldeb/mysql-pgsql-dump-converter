@@ -1,7 +1,10 @@
-default: help
+include .env
 
+DOCKER_COMPOSE=docker-compose --env-file .env
+
+default: help
 all: init up sleep migrate
-install: init up
+install: init build
 
 .PHONY: help
 help:  ## Display this help.
@@ -9,15 +12,12 @@ help:  ## Display this help.
 
 .PHONY:
 init: ## Initialize the environment
-	rsync -avz --ignore-existing example.env .env
+	@rsync -avz --ignore-existing example.env .env
+	include .env
 
 .PHONY: up
 up: ## Spin up the containers
-	docker-compose up -d
-
-.PHONY: build
-build: ## Build and spin up the containers
-	docker-compose up --build -d
+	@$(DOCKER_COMPOSE) up -d
 
 .PHONY: migrate
 migrate: ## Perform the migration
@@ -25,21 +25,29 @@ migrate: ## Perform the migration
 
 .PHONY: stop
 stop: ## Stop the containers
-	docker-compose stop
+	@$(DOCKER_COMPOSE) stop
 
 .PHONY: down
 down: ## Delete the containers and their volumes
-	docker-compose down -v
+	@$(DOCKER_COMPOSE) down -v
+
+.PHONY: build
+build: ## Build and spin up the containers
+	@$(DOCKER_COMPOSE) up --build -d
 
 .PHONY: rebuild
 rebuild: ## Spin the containers down and back up again
-	docker-compose down -v
-	docker-compose up --build -d
+	@$(DOCKER_COMPOSE) down -v
+	@$(DOCKER_COMPOSE) up --build -d
 
 .PHONY: ssh
 ssh: ## Enter the postgres container as root
-	docker-compose exec postgres /bin/bash
+	@$(DOCKER_COMPOSE) exec postgres /bin/bash
 
 .PHONY: sleep
 sleep:
-	sleep 2
+	@sleep 2
+
+# https://stackoverflow.com/a/6273809/1826109
+%:
+	@:
